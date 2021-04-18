@@ -1,0 +1,4 @@
+name: Example
+main: net.flawe.example.Example
+version: 1.0
+prefix: Example
