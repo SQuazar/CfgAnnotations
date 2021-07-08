@@ -1,0 +1,12 @@
+# The test configuration file 1.0
+# Author: flawe
+
+# Greeting the player when entering the server
+# {player} - replaced to player name
+hello-message: "Hello {player}!"
+
+# The plugin help message
+help-message: 
+  - 'The help page'
+  - '- /help - get help'
+  - '- /stop - stop the plugin'
