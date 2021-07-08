@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for add comments to configuration section
+ * Annotation for creating comments above configuration section
  *
  * @author flaweoff
  */
