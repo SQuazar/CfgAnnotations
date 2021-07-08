@@ -5,8 +5,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation for creating comments above configuration section
+ *
+ * @author flaweoff
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Indent {
+    /**
+     * Gets the indents count
+     * @return indents count
+     */
     int value();
 }

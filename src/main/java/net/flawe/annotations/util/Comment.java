@@ -5,8 +5,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation for add comments to configuration section
+ *
+ * @author flaweoff
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE})
 public @interface Comment {
+    /**
+     * Gets the comments
+     * @return comments
+     */
     String[] value();
 }

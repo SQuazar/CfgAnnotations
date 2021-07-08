@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Class that is used to load configuration parameters to sample configuration class
  *
- * @author flawe
+ * @author flaweoff
  */
 public class ConfigurationLoader {
 
