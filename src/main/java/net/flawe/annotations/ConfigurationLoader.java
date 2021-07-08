@@ -40,7 +40,6 @@ public class ConfigurationLoader {
      *
      * @param configuration Configuration class
      * @param file          File where configuration will be saved
-     * @throws IllegalAccessException Extends from dump method. See method documentation for get more info
      * @throws IOException            Will be thrown if there is any problem with the file or file system
      */
     public static void saveConfiguration(Configuration configuration, File file) throws IOException {
