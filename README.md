@@ -122,7 +122,7 @@ public class Example extends JavaPlugin implements Listener {
         ConfigurationLoader.loadConfiguration(config, getConfig());
         try {
             ConfigurationLoader.saveConfiguration(config, new File(getDataFolder(), "config.yml"));
-        } catch (IllegalAccessException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         getLogger().info("Config version is " + config.getVersion());
