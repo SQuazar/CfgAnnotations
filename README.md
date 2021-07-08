@@ -31,7 +31,7 @@ And add the CfgAnnotations dependency:
     <dependency>
         <groupId>net.flawe</groupId>
         <artifactId>annotations</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
@@ -53,7 +53,7 @@ And add the CfgAnnotations dependency:
 
 ```groovy
 dependencies {
-    implementation 'net.flawe:annotations:1.0-SNAPSHOT'
+    implementation 'net.flawe:annotations:1.0.1-SNAPSHOT'
 }
 ```
 
