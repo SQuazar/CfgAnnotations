@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 public @interface ConfigKey {
     /**
-     * Gets the configuration section value
-     * @return configuration section value
+     * Gets the configuration section name (key)
+     * @return configuration section name (key)
      */
     String value();
 }
