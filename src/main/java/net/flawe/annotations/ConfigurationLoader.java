@@ -43,10 +43,15 @@ public class ConfigurationLoader {
      * @throws IllegalAccessException Extends from dump method. See method documentation for get more info
      * @throws IOException            Will be thrown if there is any problem with the file or file system
      */
-    public static void saveConfiguration(Configuration configuration, File file) throws IllegalAccessException, IOException {
+    public static void saveConfiguration(Configuration configuration, File file) throws IOException {
         List<String> out = new ArrayList<>();
-        dump(configuration, "", out);
-        file.getParentFile().mkdirs();
+        try {
+            dump(configuration, "", out);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        if (file.getParentFile() !=  null)
+            file.getParentFile().mkdirs();
         File tmp = new File(file.getParentFile() + "___tmpconfig");
         Files.write(tmp.toPath(), out, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
         Files.move(tmp.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
@@ -67,7 +72,8 @@ public class ConfigurationLoader {
                 out.add("# " + s);
         }
         for (Field field : configuration.getClass().getDeclaredFields()) {
-            if (!field.isAnnotationPresent(ConfigKey.class)) continue;
+            if (!field.isAnnotationPresent(ConfigKey.class))
+                continue;
             if (!field.isAccessible())
                 field.setAccessible(true);
             ConfigKey key = field.getAnnotation(ConfigKey.class);
@@ -77,22 +83,35 @@ public class ConfigurationLoader {
                 for (int i = 0; i < space.value(); i++)
                     out.add("");
             }
-
             if (field.isAnnotationPresent(Comment.class)) {
                 Comment comment = field.getAnnotation(Comment.class);
                 for (String s : comment.value())
                     out.add(skip + "# " + s);
             }
-            if (field.get(configuration) instanceof Configuration) {
-                if (!field.isAnnotationPresent(ConfigKey.class)) continue;
-                Configuration configuration1 = (Configuration) field.get(configuration);
+            Object value = field.get(configuration);
+            if (value instanceof Configuration) {
+                if (!field.isAnnotationPresent(ConfigKey.class))
+                    continue;
+                Configuration configuration1 = (Configuration) value;
                 out.add(skip + keyValue + ":");
                 dump(configuration1, "  ", out);
                 continue;
             }
-            Object value = field.get(configuration);
-            if (value instanceof String)
+            if (value instanceof String) {
                 value = "\"" + value + "\"";
+            }
+            if (value instanceof List<?>) {
+                List<?> list = (List<?>) value;
+                StringBuilder builder = new StringBuilder("\n");
+                for (int a = 0; a < list.size(); a++) {
+                    Object obj = list.get(a);
+                    if (obj instanceof String)
+                        obj = "'" + obj + "'";
+                    builder.append(skip).append("  ").append('-').append(' ').append(obj);
+                    if (a < list.size() - 1) builder.append("\n");
+                }
+                value = builder.toString();
+            }
             out.add(skip + keyValue + ": " + value);
         }
     }
